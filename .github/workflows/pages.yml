@@ -8,9 +8,13 @@ on:
         type: string
         default: docs
 
+permissions:
+  id-token: write
+  pages: write
+
 jobs:
   build:
-    name: pages
+    name: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,6 +33,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
         with:
           path: _build/
+
   deploy:
     environment:
       name: github-pages
@@ -40,3 +45,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+# https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#creating-a-custom-github-actions-workflow-to-publish-your-site
