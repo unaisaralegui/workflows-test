@@ -21,3 +21,11 @@ jobs:
     needs:
       - lint
       - test
+
+  pages:
+    name: pages
+    uses: ./.github/workflows/pages.yml
+    with:
+      DOCS_PATH: docs
+    needs:
+      - build
