@@ -17,15 +17,7 @@ jobs:
 
   build:
     name: build
-    runs-on: ubuntu-latest
+    uses: ./.github/workflows/build.yml
     needs:
       - lint
       - test
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-
-      - name: Build project
-        run: uv build --wheel
