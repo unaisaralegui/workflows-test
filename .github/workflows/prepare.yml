@@ -4,6 +4,9 @@ on:
   push:
     branches: [ "main" ]
 
+env:
+  MODULE_NAME: test_mod
+  TEST_PATH: tests
 
 jobs:
   lint-ruff:
@@ -20,7 +23,7 @@ jobs:
         run: uv sync --group dev
 
       - name: Lint project
-        run: uv run ruff
+        run: uv run ruff check $MODULE_NAME
 
   lint-pylint:
     name: lint-pylint
@@ -36,7 +39,7 @@ jobs:
         run: uv sync --group dev
 
       - name: Lint project
-        run: uv run pylint
+        run: uv run pylint $MODULE_NAME
 
   test:
     name: test
@@ -53,4 +56,4 @@ jobs:
         run: uv sync --group test
 
       - name: Lint project
-        run: uv run pytest tests
+        run: uv run pytest $TEST_PATH
