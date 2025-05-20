@@ -27,12 +27,15 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     permissions:
       pages: write
       id-token: write
     steps:
     - id: deployment
       uses: sphinx-notes/pages@v3
+      with:
+        pyproject_extras: pages
 
   # pages:
   #   name: pages
