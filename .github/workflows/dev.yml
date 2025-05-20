@@ -3,9 +3,14 @@ on:
     branches: [ "main", "develop" ]
 
 jobs:
-  validate:
-    name: validate
-    uses: ./.github/workflows/base.yml
+  lint:
+    name: lint
+    uses: ./.github/workflows/lint.yml
     with:
       MODULE_NAME: test_mod
+
+  test:
+    name: test
+    uses: ./.github/workflows/test.yml
+    with:
       TEST_PATH: tests
