@@ -38,8 +38,17 @@ jobs:
       - name: Install the project
         run: uv sync --group dev
 
+      - name: Add required deps
+        run: uv add pylint-exit anybadge
+
       - name: Lint project
-        run: uv run pylint $MODULE_NAME
+        run: uv run pylint --output-format=text $MODULE_NAME | tee ./$PYTHON_LINT_DIRECTORY_NAME/pylint.log || uv run pylint-exit $?
+
+      - name: Eval Lint
+        run: PYLINT_SCORE=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' ./$PYTHON_LINT_DIRECTORY_NAME/pylint.log)
+
+      - name: Show Lint results
+        run: echo "Pylint score is $PYLINT_SCORE"
 
   test:
     name: test
@@ -74,7 +83,7 @@ jobs:
         run: uv build --wheel
 
   deploy:
-    name: build
+    name: deploy
     runs-on: ubuntu-latest
     needs:
       - build
