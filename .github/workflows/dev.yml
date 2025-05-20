@@ -23,24 +23,9 @@ jobs:
       - test
 
   pages:
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    permissions:
-      pages: write
-      id-token: write
-    steps:
-    - id: deployment
-      uses: sphinx-notes/pages@v3
-      with:
-        pyproject_extras: pages
-
-  # pages:
-  #   name: pages
-  #   uses: ./.github/workflows/pages.yml
-  #   with:
-  #     DOCS_PATH: docs
-  #   needs:
-  #     - build
+    name: pages
+    uses: ./.github/workflows/pages.yml
+    with:
+      DOCS_PATH: docs
+    needs:
+      - build
