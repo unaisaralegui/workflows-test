@@ -1,12 +1,15 @@
 name: Example
 
 on:
-  push:
-    branches: [ "main" ]
-
-env:
-  MODULE_NAME: test_mod
-  TEST_PATH: tests
+  workflow_call:
+    inputs:
+      MODULE_NAME:
+        required: true
+        type: string
+      TEST_PATH:
+        required: false
+        type: string
+        default: tests
 
 jobs:
   lint-ruff:
@@ -23,7 +26,7 @@ jobs:
         run: uv sync --group dev
 
       - name: Lint project
-        run: uv run ruff check $MODULE_NAME
+        run: uv run ruff check ${{ inputs.MODULE_NAME}}
 
   lint-pylint:
     name: lint-pylint
@@ -42,7 +45,7 @@ jobs:
         run: uv add pylint-exit anybadge
 
       - name: Lint project
-        run: uv run pylint --output-format=text $MODULE_NAME | tee ./$PYTHON_LINT_DIRECTORY_NAME/pylint.log || uv run pylint-exit $?
+        run: uv run pylint --output-format=text ${{ inputs.MODULE_NAME}} | tee ./$PYTHON_LINT_DIRECTORY_NAME/pylint.log || uv run pylint-exit $?
 
       - name: Eval Lint
         run: |
@@ -64,23 +67,4 @@ jobs:
         run: uv sync --group test
 
       - name: Test project
-        run: uv run pytest $TEST_PATH
-
-  deploy:
-    name: deploy
-    runs-on: ubuntu-latest
-    needs:
-      - lint-ruff
-      - lint-pylint
-      - test
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-
-      - name: Build project
-        run: uv build --wheel
-
-      - name: List files
-        run: ls dist
+        run: uv run pytest ${{ inputs.TEST_PATH}}

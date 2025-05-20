@@ -1,0 +1,11 @@
+on:
+  push:
+    branches: [ "main", "develop" ]
+
+jobs:
+  validate:
+    name: validate
+    uses: ./.github/workflows/base.yml
+    with:
+      MODULE_NAME: test_mod
+      TEST_PATH: tests
