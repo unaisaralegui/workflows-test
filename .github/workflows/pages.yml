@@ -22,7 +22,7 @@ jobs:
         run: uv sync --group pages
 
       - name: Run pages
-        run: sphinx-build -b html ${{ inputs.DOCS_PATH}} _build
+        run: uv run sphinx-build -b html ${{ inputs.DOCS_PATH}} _build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
