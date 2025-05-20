@@ -19,7 +19,7 @@ jobs:
         uses: astral-sh/setup-uv@v5
 
       - name: Install the deps
-        run: pip install sphinx sphinx_rtd_theme myst_parser
+        run: uv sync --group pages
 
       - name: Run pages
         run: sphinx-build -b html ${{ inputs.DOCS_PATH}} _build
