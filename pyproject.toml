@@ -1,0 +1,103 @@
+[project]
+name = "test_mod"
+dynamic = ["version"]
+authors = [{ name = "xxx", email = "xxx@yyy.net" }]
+maintainers = [{ name = "xxx", email = "xxx@yyy.net" }]
+readme = "README.md"
+description = "Core functionalities for xxxx"
+requires-python = ">=3.10"
+dependencies = [
+    "python-dotenv>=1.0.1",
+    "pytz>=2024.2",
+]
+
+[dependency-groups]
+test = [
+    "pytest"
+]
+pages = [
+    "Sphinx",
+    "sphinx_copybutton",
+    "myst_parser",
+    "sphinx_book_theme",
+    "linkify-it-py",
+    "markdown-it-py"
+]
+dev = [
+    "pylint",
+    "ruff"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["test_mod*"]  # alternatively: `exclude = ["additional*"]`
+namespaces = false
+
+[tool.setuptools.dynamic]
+version = {attr = "test_mod._metadata.__version__"}
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+    "test",
+    "common",
+]
+
+# Same as Black.
+line-length = 88
+indent-width = 4
+
+# Assume Python 3.10
+target-version = "py310"
+
+[tool.ruff.lint]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
+select = ["E4", "E7", "E9", "F"]
+ignore = ["F401", "F403"]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+docstring-code-format = true
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
