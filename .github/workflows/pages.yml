@@ -8,10 +8,6 @@ on:
         type: string
         default: docs
 
-permissions:
-  id-token: write
-  pages: write
-
 jobs:
   build:
     name: build
