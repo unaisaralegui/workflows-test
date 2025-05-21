@@ -1,3 +1,5 @@
+"""Metadata for test module"""
+
 __version__ = "0.0.7"
 __author__ = """xxxx"""
 __email__ = "xxx@yyy.net"
