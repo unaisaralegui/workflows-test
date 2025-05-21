@@ -1,3 +1,5 @@
+name: CI - Lint, Test, Build, and Deploy Docs
+
 on:
   push:
     branches: [ "main", "develop" ]
@@ -5,6 +7,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint:
