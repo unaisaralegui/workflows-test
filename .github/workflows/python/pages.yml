@@ -7,6 +7,10 @@ on:
         required: false
         type: string
         default: docs
+      PAGES_DEPENDENCY_GROP:
+        required: false
+        type: string
+        default: pages
 
 jobs:
   build:
@@ -14,19 +18,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - name: Install uv
         uses: astral-sh/setup-uv@v5
-
       - name: Install the deps
-        run: uv sync --group pages
-
+        run: uv sync --group ${{ inputs.PAGES_DEPENDENCY_GROP }}
       - name: Run pages
-        run: uv run sphinx-build -b html ${{ inputs.DOCS_PATH}} _build
-
+        run: uv run sphinx-build -b html ${{ inputs.DOCS_PATH }} _build
       - name: Upload static files as artifact
         id: deployment
-        uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+        uses: actions/upload-pages-artifact@v3
         with:
           path: _build/
 
