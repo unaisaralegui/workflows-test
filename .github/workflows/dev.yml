@@ -3,10 +3,8 @@ on:
     branches: [ "main", "develop" ]
   workflow_dispatch:
 
-
 permissions:
-  id-token: write
-  pages: write
+  contents: read
 
 jobs:
   lint:
@@ -35,3 +33,6 @@ jobs:
       DOCS_PATH: docs
     needs:
       - build
+    permissions:
+      id-token: write
+      pages: write
