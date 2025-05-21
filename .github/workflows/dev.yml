@@ -9,26 +9,26 @@ permissions:
 jobs:
   lint:
     name: lint
-    uses: ./.github/workflows/python/lint.yml
+    uses: unaisaralegui/workflow-templates/.github/workflows/python/lint.yml
     with:
       MODULE_NAME: test_mod
 
   test:
     name: test
-    uses: ./.github/workflows/python/test.yml
+    uses: unaisaralegui/workflow-templates/.github/workflows/python/test.yml
     with:
       TEST_PATH: tests
 
   build:
     name: build
-    uses: ./.github/workflows/python/build.yml
+    uses: unaisaralegui/workflow-templates/.github/workflows/python/build.yml
     needs:
       - lint
       - test
 
   pages:
     name: pages
-    uses: ./.github/workflows/python/pages.yml
+    uses: unaisaralegui/workflow-templates/.github/workflows/python/pages.yml
     with:
       DOCS_PATH: docs
     needs:
